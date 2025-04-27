@@ -6,7 +6,7 @@ PREFIX = /usr/local
 all: $(TARGET)
 
 $(TARGET): $(SOURCE)
-	$(CC) -o $@ $(SOURCE)
+	$(CC) -o $@ $(SOURCE) -lm
 
 clean:
 	rm -rf $(TARGET)

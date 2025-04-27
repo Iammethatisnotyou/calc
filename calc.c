@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
 const char all_operators[] = {'+', '/', '-', 'x', '*', '\0'};
 
@@ -17,7 +18,12 @@ void calculations(char *operator, long double *first_digit, unsigned int current
 			result -= first_digit[i+1];
 		}
 		else if (operator[i] == '*' || operator[i] == 'x'){
-			result *= first_digit[i+1];
+			if (operator[i+1] == '*'){ /* Exponents */
+				result = powl(first_digit[i], first_digit[i+1]);
+				i++;
+			} else {
+				result *= first_digit[i+1];
+			}
 		}
 		else if (operator[i] == '/'){
 			result /= first_digit[i+1];
@@ -32,7 +38,6 @@ void calculations(char *operator, long double *first_digit, unsigned int current
 }
 void parser(char **argv){
 	char *operator = malloc(1);
-	//operator[0] = '\0';
 	unsigned int num_operator = 0;
 
 	bool first_condition = false;
