@@ -1,7 +1,7 @@
 TARGET = calc
 SOURCE = calc.c config.h
-BACKUP = bk_calc.c
 CC = gcc
+PREFIX = /usr/local
 
 all: $(TARGET)
 
@@ -10,5 +10,8 @@ $(TARGET): $(SOURCE)
 
 clean:
 	rm -rf $(TARGET)
-copy:
-	cp calc.c $(BACKUP)
+install:
+	cp -f $(TARGET) $(PREFIX)/bin/$(TARGET)
+	chmod 755 $(PREFIX)/bin/$(TARGET)
+uninstall:
+	rm -f $(PREFIX)/bin/$(TARGET)
