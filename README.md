@@ -1,8 +1,7 @@
 # calc
+Calc is a simple C terminal dynamic expression calculator.
 
-## Calc is a simple C terminal dynamic expression calculator.
-
-### Installationn
+### Installation
 ```bash
 git clone https://github.com/Iammethatisnotyou/calc
 cd calc

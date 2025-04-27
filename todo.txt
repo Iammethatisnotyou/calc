@@ -1,13 +1,10 @@
 TODO
 
-[] If project gets popular enough post to github
+[] Get help from other programmers for recommendation
+[] Add exponents operator
 [] Add switch instead of if for operator
-[] fix seg faults
+[] fix any seg faults
 [] switch types to dynamic type, float, double etc
-[x] switch to multi-dimensional arr's for numbers
-[x] switch to multi-dimensional arr's for operator
 [] use pemdas for multiple operators
 [] Add color
-[x] Add config.h
-[] create it suckless style
 [] Make it memory efficient
