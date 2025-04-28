@@ -57,10 +57,8 @@ void parser(char **argv){
 			if (strcmp(argv[i], "pi") == 0){
 				current_size++;
 				first_digit = realloc(first_digit, sizeof(long double) * current_size);
-				if (first_digit == NULL){
-					printf("ERROR: Can't Allocate Enough Memory");
-					exit(1);
-				}
+				malloc_check(first_digit);
+
 				first_digit[current_size -1] = PI;
 			} else if (strcmp(argv[i], "clear") == 0){
 				system("clear");
@@ -71,10 +69,7 @@ void parser(char **argv){
 			} else if (isdigit(argv[i][k]) || argv[i][k] == '.'){
 				current_size++;
 				first_digit = realloc(first_digit, sizeof(long double) * current_size);
-				if (first_digit == NULL){
-					printf("ERROR: Can't Allocate Enough Memory");
-					exit(1);
-				}
+				malloc_check(first_digit);
 				first_digit[current_size -1] = strtod(argv[i], NULL);
 			}
 			for (int j = 0; j < strlen(all_operators); j++){
