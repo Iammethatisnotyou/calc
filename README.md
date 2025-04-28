@@ -17,8 +17,20 @@ sudo make install
 calc
 ```
 
+**Example**<br>
+```bash
+calc 7 + 3
+10
+```
+As you can see 10 is the output you can also do this:
+```bash
+calc
+> 2 ** 4
+16
+```
+
 **Information**<br>
-For more information check out the man page
+For more information check out the man page or read the code
 ```bash
 man calc
 ```

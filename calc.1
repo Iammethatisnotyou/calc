@@ -1,5 +1,5 @@
 .\" Manpage for calc.
-.TH man 8 "07 April 2025" "0.2" "calc"
+.TH man 8 "07 April 2025" "0.3" "calc"
 .SH NAME
 Calc
 .SH SYNOPSIS
@@ -10,6 +10,8 @@ Calc is a simple C terminal dynamic expression calculator.
 Either run "calc [expression] [more expression]"
 .TP
 Or just "calc" to enter the software
+.TP
+Note: When ran in CLI sometimes shells like zsh can mess up characters like '*'
 .SH COMMANDS
 Mostly normal arithmetic expressions with a few outliers.
 .TP
@@ -17,8 +19,12 @@ Mostly normal arithmetic expressions with a few outliers.
 .TP
 - "PI" for circles
 .SH SEE ALSO
-Takes inspiration from qalc
+Qalc
+.SH Exit stats:
+0 	Normal exit status
+.TP
+1	Common error or problem
 .SH BUGS
-Some known bugs are PI being strange and exponents not being able to have other inputs.
+Some known bugs are PI being strange and exponents not being able to have other inputs. CLI arguments can also be a problem.
 .SH AUTHOR
 Contact iammethatisyou@gmail.com

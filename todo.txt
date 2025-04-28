@@ -1,10 +1,8 @@
 TODO
 
+[] Fix cli arguments acting strange
 [] Get help from other programmers for recommendation
-[] Add exponents operator
-[] Add switch instead of if for operator
-[] fix any seg faults
+[] fix exponents operator and PI
 [] switch types to dynamic type, float, double etc
 [] use pemdas for multiple operators
-[] Add color
 [] Make it memory efficient
