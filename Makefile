@@ -1,5 +1,5 @@
 TARGET = calc
-SOURCE = calc.c config.h
+SOURCE = calc.c
 PREFIX = /usr/local
 
 MANPAGE = calc.1
