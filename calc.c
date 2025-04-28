@@ -6,6 +6,7 @@
 #include <stdbool.h>
 #include <math.h>
 
+#define PI acos(-1.0L)
 const char all_operators[] = {'+', '/', '-', 'x', '*', '\0'};
 
 void calculations(char *operator, long double *first_digit, unsigned int current_size){
@@ -31,7 +32,6 @@ void calculations(char *operator, long double *first_digit, unsigned int current
 
 		else {
 			exit(1);
-			//printf("%.2Lf %c %.2Lf = %.4Lf\n\n", first_digit[j], operator[i], first_digit[k], result);
 		}
 	}
 	printf("%.4Lf\n", result);
@@ -50,10 +50,21 @@ void parser(char **argv){
 	}
 	for (int i = 0; argv[i] != NULL; i++){
 		for (int k = 0; k < strlen(argv[i]); k++){
-			if (isalpha(argv[i][k])){
+			if (strcmp(argv[i], "PI") == 0){
+				current_size++;
+				first_digit = realloc(first_digit, sizeof(long double) * current_size);
+				if (first_digit == NULL){
+					printf("ERROR: Can't Allocate Enough Memory");
+					exit(1);
+				}
+				first_digit[current_size -1] = PI;
+
+			} else if (strcmp(argv[i], "clear") == 0){
+				system("clear");
+			} else if (isalpha(argv[i][k])){
 				return;
-			}
-			else if (isdigit(argv[i][k]) || argv[i][k] == '.'){
+
+			} else if (isdigit(argv[i][k]) || argv[i][k] == '.'){
 				current_size++;
 				first_digit = realloc(first_digit, sizeof(long double) * current_size);
 				if (first_digit == NULL){

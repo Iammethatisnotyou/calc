@@ -17,6 +17,9 @@ sudo make install
 calc
 ```
 
+**Information**
+For more information check out the man page
+
 **License**
 This uses GNU V3 License
 
