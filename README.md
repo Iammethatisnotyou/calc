@@ -17,11 +17,14 @@ sudo make install
 calc
 ```
 
-**Information**
+**Information**<br>
 For more information check out the man page
+```bash
+man calc
+```
 
-**License**
+**License**<br>
 This uses GNU V3 License
 
-**Contact**
-iammethatisyou@gmail.com
+**Contact**<br>
+Feel free to contact me at "iammethatisyou@gmail.com"
