@@ -13,27 +13,33 @@ const char all_operators[] = {'+', '/', '-', 'x', '*', '%', '\0'};
 void malloc_check(void *ptr){
 	if (ptr == NULL) {
 		perror("ERROR: Can't allocate memory");
-		exit(1);
+		exit(2);
 	}
 }
-void calculations(char *operator, long double *first_digit, unsigned int current_size){
-	long double result = first_digit[0];
+void calculations(char *operator, long double *digits, unsigned int current_size){
+	long double result = digits[0];
 	for (int i = 0; i < strlen(operator); i++){
 		if(operator[i] == '+'){
-			result += first_digit[i+1];
+			result += digits[i+1];
 		} else if (operator[i] == '-'){
-			result -= first_digit[i+1];
+			result -= digits[i+1];
 		} else if (operator[i] == '*' || operator[i] == 'x'){
 			if (operator[i+1] == '*'){ /* Exponents */
-				result = powl(first_digit[i], first_digit[i+1]);
-				i++;
+				long double base = (result != digits[0] ? result : digits[i]);
+				result = powl(base, digits[i+1]);
+				i += 2;
 			} else {
-				result *= first_digit[i+1];
+				result *= digits[i+1];
 			}
 		} else if (operator[i] == '/'){
-			result /= first_digit[i+1];
+			if (operator[i+1] == '/'){
+				result = (long long) result / (long long) digits[i+1];
+				i++;
+			} else {
+				result /= digits[i+1];
+			}
 		} else if (operator[i] == '%'){
-			result = (int) result % (int) first_digit[i+1];
+			result = (int) result % (int) digits[i+1];
 		} else {
 			exit(1);
 		}
@@ -42,13 +48,10 @@ void calculations(char *operator, long double *first_digit, unsigned int current
 }
 void parser(char **argv){
 	char *operator = malloc(1);
-	unsigned int num_operator = 0;
+	unsigned int num_operator = 0, current_size = 0;
+	long double *digits = malloc(sizeof(long double));
 
-	bool first_condition = false;
-	long double *first_digit = malloc(sizeof(long double));
-	unsigned int current_size = 0;
-
-	malloc_check(first_digit);
+	malloc_check(digits);
 	for (int i = 0; argv[i] != NULL; i++){
 		for (int k = 0; k < strlen(argv[i]); k++){
 			for (int j = 0; argv[i][j] != '\0'; j++){
@@ -56,10 +59,10 @@ void parser(char **argv){
 			}
 			if (strcmp(argv[i], "pi") == 0){
 				current_size++;
-				first_digit = realloc(first_digit, sizeof(long double) * current_size);
-				malloc_check(first_digit);
+				digits = realloc(digits, sizeof(long double) * current_size);
+				malloc_check(digits);
 
-				first_digit[current_size -1] = PI;
+				digits[current_size -1] = PI;
 			} else if (strcmp(argv[i], "clear") == 0){
 				system("clear");
 			} else if (isalpha(argv[i][k])){
@@ -68,22 +71,22 @@ void parser(char **argv){
 
 			} else if (isdigit(argv[i][k]) || argv[i][k] == '.'){
 				current_size++;
-				first_digit = realloc(first_digit, sizeof(long double) * current_size);
-				malloc_check(first_digit);
-				first_digit[current_size -1] = strtod(argv[i], NULL);
-			}
-			for (int j = 0; j < strlen(all_operators); j++){
-				if (all_operators[j] == argv[i][0]){
-					num_operator++;
-					operator = realloc(operator, num_operator);
-					operator[num_operator -1] = argv[i][0];
+				digits = realloc(digits, sizeof(long double) * current_size);
+				malloc_check(digits);
+				digits[current_size -1] = strtod(argv[i], NULL);
+			} else {
+				for (int j = 0; j < strlen(all_operators); j++){
+					if (all_operators[j] == argv[i][0]){
+						num_operator++;
+						operator = realloc(operator, num_operator);
+						malloc_check(operator);
+						operator[num_operator -1] = argv[i][0];
+					}
 				}
 			}
 		}
 	}
-	calculations(operator, first_digit, current_size);
-
-
+	calculations(operator, digits, current_size);
 }
 int main(int argc, char *argv[]){
 	bool quit = false;
@@ -107,7 +110,6 @@ int main(int argc, char *argv[]){
 		if (strcmp(lowercase_input, "exit\n") == 0){
 			exit(0);
 		}
-
 		char *tokens = strtok(input, " \n");
 		while (tokens && token_count < MAX_TOKENS){
 			contents[token_count] = malloc(strlen(tokens) +1);

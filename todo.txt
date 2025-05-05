@@ -1,8 +1,8 @@
 TODO
 
+[] Make the operators not need space "5+5" instead of "5 + 5"
 [] Fix cli arguments acting strange
 [] Get help from other programmers for recommendation
-[] fix exponents operator and PI
+[] fix exponents operator
 [] switch types to dynamic type, float, double etc
 [] use pemdas for multiple operators
-[] Make it memory efficient
