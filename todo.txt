@@ -1,6 +1,6 @@
 TODO
 
-[] Make the operators not need space "5+5" instead of "5 + 5"
+[] Make the cli to be whitespace insensitive
 [] Fix cli arguments acting strange
 [] Get help from other programmers for recommendation
 [] fix exponents operator

@@ -1,7 +1,7 @@
 .\" Manpage for calc.
 .TH man 8 "07 April 2025" "0.3" "calc"
 .SH NAME
-Calc
+calc
 .SH SYNOPSIS
 calc [expression] [more expressions]
 .SH DESCRIPTION
@@ -9,7 +9,11 @@ Calc is a simple C terminal dynamic expression calculator.
 .SH OPTIONS
 Either run "calc [expression] [more expression]"
 .TP
-Or just "calc" to enter the software
+.B
+-v
+prints version and exits
+.TP
+You can also just do "calc" to enter the software, note calc is whitespace insensitive.
 .TP
 Note: When ran in CLI sometimes shells like zsh can mess up characters like '*'
 .SH COMMANDS

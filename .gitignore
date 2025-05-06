@@ -50,6 +50,9 @@
 # Executable
 calc
 
+# Backup file for development
+bk_calc.c
+
 modules.order
 Module.symvers
 Mkfile.old
