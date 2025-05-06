@@ -1,8 +1,20 @@
 TODO
 
+[] Clean up code and update main branch
+[] Fix pi
 [] Make the cli to be whitespace insensitive
-[] Fix cli arguments acting strange
 [] Get help from other programmers for recommendation
 [] fix exponents operator
 [] switch types to dynamic type, float, double etc
 [] use pemdas for multiple operators
+
+work on this c pemdas function:
+void pemdas(char *operator, long double *digits, char **argv){
+	for (int i = 0; i < argv[i]){
+		for (int k = 0; k < argv[k]){
+			if (argv[i][k] == '(') || argv[i][k] == ')'{
+				break;
+			} else if (/* etc */))
+		}
+	}
+}

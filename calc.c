@@ -8,11 +8,11 @@
 
 #define VERSION 0.3
 #define DIGIT "0123456789"
-#define OPERATOR "+-*/x%\""
+#define OPERATOR "+-*/x%"
 #define MAX_TOKENS 12
 #define PI acos(-1.0L)
 
-const char all_operators[] = {'+', '/', '-', 'x', '*', '%', '"', '\0'};
+const char all_operators[] = {'+', '/', '-', 'x', '*', '%', '\0'};
 const char SPACE[] = " \f\n\r\t\v";
 
 void malloc_check(void *ptr){
@@ -51,16 +51,6 @@ void calculations(char *operator, long double *digits, unsigned int current_size
 	}
 	printf("%.4Lf\n", result);
 }
-/*void pemdas(char *operator, long double *digits, char **argv){
-	 Goal, get operators and use pemdas order to re-organize them before doing calculations function
-	for (int i = 0; i < argv[i]){
-		for (int k = 0; k < argv[k]){
-			if (argv[i][k] == '('){
-			}
-			else if (argv[i][k] == ')')
-		}
-	}
-}*/
 void parser(char **argv, int argc){
 	char *operator = malloc(1);
 	unsigned int num_operator = 0, current_size = 0;
@@ -69,17 +59,18 @@ void parser(char **argv, int argc){
 	malloc_check(digits);
 	for (int i = 0; i < argc; i++){
 		for (int k = 0; k < strlen(argv[i]); k++){
-			for (int j = 0; argv[i][j] != '\0'; j++){
-				argv[i][j] = tolower(argv[i][j]);
-			}
+			argv[i][k] = tolower(argv[i][k]);
+
 			if (strcmp(argv[i], "pi") == 0){
 				current_size++;
 				digits = realloc(digits, sizeof(long double) * current_size);
 				malloc_check(digits);
-
 				digits[current_size -1] = PI;
+
 			} else if (strcmp(argv[i], "clear") == 0){
 				system("clear");
+				return;
+
 			} else if (isalpha(argv[i][k])){
 				printf("Invalid character: Probably letter\n");
 				return;
@@ -103,59 +94,28 @@ void parser(char **argv, int argc){
 	}
 	calculations(operator, digits, current_size);
 }
-void formatting(char input[256], char ***contents, int *token_count){
-	char *position = input;
-	for (*token_count = 0; *token_count < MAX_TOKENS; *token_count++) {
-		size_t len = strspn(position, DIGIT);
-		if (len == 0){
-			break;
-		}
-		*contents[*token_count] = malloc(len +1);
-		strncpy(*contents[*token_count], position, len);
-		*contents[*token_count][len] = '\0';
-		position += len;
-		
-		size_t space_len = strspn(position, SPACE);
-		position += space_len;
-	}
-}
 int main(int argc, char *argv[]){
 	bool quit = false;
-	int token_count = 0;
+	unsigned int token_count = 0;
 	char **contents = calloc(sizeof(char *), MAX_TOKENS);
-	
+	malloc_check(contents);
+
 	if (argc == 2 && !strcmp("-v", argv[1])){
 		printf("calc-%.2f\n", VERSION);
 		exit(0);
 	}
 	if (argc > 1){
-		char joined[256] = "";
-		for (int i = 1; i < argc; i++) {
-			strncat(joined, argv[i], 255);
-		}
-		joined[256] = '\0';
-		printf("%s", joined);
-		formatting(joined, &contents, &token_count);
-		parser(contents, token_count);
+		parser(argv +1, argc -1);
 		return 0;
 	}
 	while(!quit){
 		char input[256];
 		char *position = input;
-		char lowercase_input[256];
-		char **contents = calloc(sizeof(char *), MAX_TOKENS);
-		unsigned int token_count;
-		malloc_check(contents);
 
-		printf("> ");
+		printf("-> ");
 		fgets(input, sizeof(input), stdin);
-		
-		for(int i = 0; input[i] != '\0'; i++){
-			lowercase_input[i] = tolower(input[i]);
-		}
-		if (strcmp(lowercase_input, "exit\n") == 0){
-			exit(0);
-		}
+
+		if (strcmp(input, "exit\n") == 0) exit(0);
 		for (token_count = 0; token_count < MAX_TOKENS; token_count++) { /* TURN THIS TO FUNCTION */
 			size_t len = strspn(position, DIGIT);
 			if (len == 0){
@@ -169,6 +129,7 @@ int main(int argc, char *argv[]){
 			size_t space_len = strspn(position, SPACE);
 			position += space_len;
 		}
+
 		parser(contents, token_count);
 	}
 	for (int i = 0; i < token_count; i++){
